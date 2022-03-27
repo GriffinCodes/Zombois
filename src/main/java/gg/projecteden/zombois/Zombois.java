@@ -33,7 +33,7 @@ public class Zombois extends EdenAPI {
 	}
 
 	public static void exec(String message) {
-		System.out.println(Utils.bash("tmux send-keys -t zomboid.0 \"%s\" ENTER".formatted(message)));
+		System.out.println(Utils.bash("tmux send-keys -t zomboid.0 %s ENTER".formatted(message.replaceAll(" ", " SPACE "))));
 	}
 
 	@SneakyThrows

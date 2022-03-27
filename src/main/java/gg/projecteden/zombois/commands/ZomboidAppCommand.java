@@ -12,7 +12,7 @@ import static gg.projecteden.zombois.Zombois.exec;
 @GuildCommand("948361092101455962")
 @Command("Interact with Project Zomboid server")
 public class ZomboidAppCommand extends AppCommand {
-	private static final Runnable start = () -> exec("./start-server.sh -servername Eden_v2");
+	private static final Runnable start = () -> exec("~/zomboid/start-server.sh -servername Eden_v2");
 
 	public ZomboidAppCommand(AppCommandEvent event) {
 		super(event);
