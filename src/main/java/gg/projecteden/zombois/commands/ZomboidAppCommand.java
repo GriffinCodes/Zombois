@@ -6,13 +6,19 @@ import gg.projecteden.discord.appcommands.annotations.Command;
 import gg.projecteden.discord.appcommands.annotations.GuildCommand;
 import gg.projecteden.utils.Tasks;
 import gg.projecteden.utils.TimeUtils.MillisTime;
+import gg.projecteden.utils.Utils;
 
-import static gg.projecteden.zombois.Zombois.exec;
+import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import java.util.List;
+
+import static gg.projecteden.zombois.Zombois.console;
 
 @GuildCommand("948361092101455962")
 @Command("Interact with Project Zomboid server")
 public class ZomboidAppCommand extends AppCommand {
-	private static final Runnable start = () -> exec("~/zomboid/start-server.sh -servername Eden_v2");
+	private static final Runnable start = () -> console("~/zomboid/start-server.sh -servername Eden_v2");
 
 	public ZomboidAppCommand(AppCommandEvent event) {
 		super(event);
@@ -20,7 +26,7 @@ public class ZomboidAppCommand extends AppCommand {
 
 	@Command("Reboot the server")
 	void reboot() {
-		exec("quit");
+		console("quit");
 		Tasks.wait(MillisTime.SECOND.x(30), start);
 		reply("Rebooting server, will take approximately 90 seconds");
 	}
@@ -31,10 +37,26 @@ public class ZomboidAppCommand extends AppCommand {
 		reply("Starting server, will take approximately 60 seconds");
 	}
 
-	@Command("Broadcast")
+	@Command("Broadcast a message to the server")
 	void broadcast(String message) {
-		exec("servermsg \"" + message + "\"");
-		reply("Sent message `" + message + "`");
+		console("servermsg \"" + message + "\"");
+		reply("Broadcasted message `" + message + "`");
+	}
+
+	@Command("List online players")
+	void players() {
+		console("players");
+		event.getEvent().deferReply().queue(reply -> Tasks.wait(MillisTime.SECOND, () -> {
+			try {
+				final List<String> lines = Files.readAllLines(Paths.get("/home/steam/Zomboid/server-console.txt"), StandardCharsets.UTF_8);
+				final String tail = String.join("\n", lines.subList(lines.size() - 10, lines.size()));
+				final String[] split = tail.split("Players connected");
+				final String list = split[split.length - 1].split("\n\n")[0];
+				reply.editOriginal("Players online" + list.replaceFirst("\n-", "").replaceAll("\n-", ", ")).queue();
+			} catch (Exception ex) {
+				ex.printStackTrace();
+			}
+		}));
 	}
 
 }

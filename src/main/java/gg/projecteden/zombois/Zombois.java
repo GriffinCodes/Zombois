@@ -9,6 +9,7 @@ import lombok.SneakyThrows;
 import net.dv8tion.jda.api.JDA;
 import net.dv8tion.jda.api.JDABuilder;
 import net.dv8tion.jda.api.hooks.ListenerAdapter;
+import org.jetbrains.annotations.NotNull;
 import org.reflections.Reflections;
 
 import java.util.Objects;
@@ -32,8 +33,10 @@ public class Zombois extends EdenAPI {
 		}
 	}
 
-	public static void exec(String message) {
-		System.out.println(Utils.bash("tmux send-keys -t zomboid.0 %s ENTER".formatted(message.replaceAll(" ", " SPACE "))));
+	@NotNull
+	@SneakyThrows
+	public static void console(String command) {
+		Utils.bash("tmux send-keys -t zomboid.0 %s ENTER".formatted(command.replaceAll(" ", " SPACE ")));
 	}
 
 	@SneakyThrows
