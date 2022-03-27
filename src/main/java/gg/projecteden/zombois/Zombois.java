@@ -34,7 +34,7 @@ public class Zombois extends EdenAPI {
 	}
 
 	public static void exec(String message) {
-		Utils.bash("screen -S zomboid -X stuff '" + message + "'`echo -ne '\\015'`");
+		System.out.println(Utils.bash("screen -S zomboid -X stuff '" + message + "'`echo -ne '\\015'`"));
 	}
 
 	@SneakyThrows

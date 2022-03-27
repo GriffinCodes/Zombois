@@ -20,7 +20,6 @@ public class ZomboidAppCommand extends AppCommand {
 
 	@Command("Reboot the server")
 	void reboot() {
-		System.out.println("nerd");
 		exec("quit");
 		Tasks.wait(MillisTime.SECOND.x(30), start);
 		reply("Rebooting server");
