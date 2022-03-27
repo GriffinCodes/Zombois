@@ -27,14 +27,13 @@ public class Zombois extends EdenAPI {
 
 		try {
 			jda();
-
 		} catch (Exception ex) {
 			ex.printStackTrace();
 		}
 	}
 
 	public static void exec(String message) {
-		System.out.println(Utils.bash("screen -S zomboid -X stuff '" + message + "'`echo -ne '\\015'`"));
+		System.out.println(Utils.bash("tmux send-keys -t zomboid.0 \"%s\" ENTER".formatted(message)));
 	}
 
 	@SneakyThrows
