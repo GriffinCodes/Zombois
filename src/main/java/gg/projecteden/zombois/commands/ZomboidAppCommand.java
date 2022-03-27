@@ -22,13 +22,13 @@ public class ZomboidAppCommand extends AppCommand {
 	void reboot() {
 		exec("quit");
 		Tasks.wait(MillisTime.SECOND.x(30), start);
-		reply("Rebooting server");
+		reply("Rebooting server, will take approximately 90 seconds");
 	}
 
 	@Command("Start the server")
 	void start() {
 		start.run();
-		reply("Starting server");
+		reply("Starting server, will take approximately 60 seconds");
 	}
 
 	@Command("Broadcast")
