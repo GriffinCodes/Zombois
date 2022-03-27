@@ -91,18 +91,6 @@
       <id>projecteden-repo</id>
       <url>https://sonatype.projecteden.gg/repository/maven-public/</url>
     </repository>
-    <repository>
-      <id>apache</id>
-      <url>https://repo1.maven.org/maven2/</url>
-    </repository>
-    <repository>
-      <id>jda-repo</id>
-      <url>https://m2.dv8tion.net/releases</url>
-    </repository>
-    <repository>
-      <id>cloud-repo</id>
-      <url>https://oss.sonatype.org/content/repositories/snapshots/</url>
-    </repository>
   </repositories>
 
   <dependencies>
