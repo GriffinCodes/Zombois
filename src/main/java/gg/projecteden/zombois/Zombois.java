@@ -18,6 +18,8 @@ import java.util.stream.Stream;
 public class Zombois extends EdenAPI {
 	public static JDA JDA;
 	public static final String ZOMBOIS_GUILD_ID = "948361092101455962";
+	public static final String RUN_DIRECTORY = "/home/steam/Zomboid/";
+	public static final String INSTALL_DIRECTORY = "/home/steam/zomboid/";
 
 	public static void main(String[] args) {
 		new Zombois();
