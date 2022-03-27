@@ -31,4 +31,10 @@ public class ZomboidAppCommand extends AppCommand {
 		reply("Starting server");
 	}
 
+	@Command("Broadcast")
+	void broadcast(String message) {
+		exec("servermsg \"" + message + "\"");
+		reply("Sent message `" + message + "`");
+	}
+
 }
