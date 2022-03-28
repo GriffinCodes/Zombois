@@ -6,13 +6,9 @@ import gg.projecteden.discord.appcommands.annotations.Command;
 import gg.projecteden.discord.appcommands.annotations.GuildCommand;
 import gg.projecteden.utils.Tasks;
 import gg.projecteden.utils.TimeUtils.MillisTime;
+import gg.projecteden.zombois.Zombois;
 
-import java.nio.file.Files;
-import java.nio.file.Paths;
-
-import static gg.projecteden.zombois.Zombois.RUN_DIRECTORY;
 import static gg.projecteden.zombois.Zombois.console;
-import static java.nio.charset.StandardCharsets.UTF_8;
 
 @GuildCommand("948361092101455962")
 @Command("Interact with the Project Zomboid server")
@@ -44,17 +40,9 @@ public class ZomboidAppCommand extends AppCommand {
 
 	@Command("List online players")
 	void players() {
-		console("players");
-		event.getEvent().deferReply().queue(reply -> Tasks.wait(MillisTime.SECOND, () -> {
-			try {
-				final String tail = String.join("\n", Files.readAllLines(Paths.get(RUN_DIRECTORY + "server-console.txt"), UTF_8));
-				final String[] split = tail.split("Players connected");
-				final String list = split[split.length - 1].split("\n\n")[0];
-				reply.editOriginal("Players online" + list.replaceFirst("\n-", "").replaceAll("\n-", ", ")).queue();
-			} catch (Exception ex) {
-				ex.printStackTrace();
-			}
-		}));
+		event.getEvent().deferReply().queue(reply ->
+			Zombois.getOnlineNerds().thenAccept(players ->
+				reply.editOriginal(players).queue()));
 	}
 
 }
