@@ -3,6 +3,7 @@ package gg.projecteden.zombois;
 import gg.projecteden.EdenAPI;
 import gg.projecteden.mongodb.DatabaseConfig;
 import gg.projecteden.utils.Env;
+import gg.projecteden.utils.StringUtils;
 import gg.projecteden.utils.Tasks;
 import gg.projecteden.utils.TimeUtils.MillisTime;
 import gg.projecteden.utils.Utils;
@@ -13,6 +14,7 @@ import org.jetbrains.annotations.NotNull;
 
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
@@ -53,9 +55,10 @@ public class Zombois extends EdenAPI {
 		Tasks.wait(MillisTime.SECOND, () -> {
 			try {
 				final String tail = String.join("\n", Files.readAllLines(Paths.get(RUN_DIRECTORY + "server-console.txt"), UTF_8));
-				final String[] split = tail.split("Players connected");
+				final String[] split = tail.split("Players connected ()");
 				final String list = split[split.length - 1].split("\n\n")[0];
-				final List<String> players = Arrays.asList(list.split(": ", 2)[1].replaceFirst("\n-", "").split("\n-"));
+				final List<String> players = new ArrayList<>(Arrays.asList(list.split(": ", 2)[1].trim().replaceFirst("\n-", "").split("\n-")));
+				players.removeIf(StringUtils::isNullOrEmpty);
 				future.complete("Online Nerds (%d): %s".formatted(players.size(), String.join(", ", players)));
 			} catch (Exception ex) {
 				ex.printStackTrace();

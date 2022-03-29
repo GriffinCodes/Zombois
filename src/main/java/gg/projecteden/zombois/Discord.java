@@ -33,14 +33,8 @@ public class Discord {
 		new AppCommandRegistry(JDA, commandsPackage).registerAll();
 	}
 
-	private static String topic = "";
-
 	private static void updateTopic() {
-		Zombois.getOnlineNerds().thenAccept(nerds -> {
-			if (nerds.equals(topic))
-				return;
-
-			topic = nerds;
+		Zombois.getOnlineNerds().thenAccept(topic -> {
 			final TextChannel channel = JDA.getTextChannelById(GENERAL_CHANNEL_ID);
 			if (channel == null)
 				return;
