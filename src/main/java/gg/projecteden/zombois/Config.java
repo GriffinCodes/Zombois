@@ -16,6 +16,7 @@ public class Config {
 
 	public static String ENV = config.get("ENV");
 	public static String DISCORD_TOKEN = config.get("DISCORD_TOKEN");
+	public static String SERVER = config.get("SERVER");
 
 	@SneakyThrows
 	public static Map<String, String> read(String file) {
