@@ -31,7 +31,7 @@ public class Discord {
 			.awaitReady();
 
 		final String commandsPackage = Zombois.class.getPackageName() + ".commands";
-		new AppCommandRegistry(JDA, commandsPackage).registerAll();
+		new AppCommandRegistry(JDA, commandsPackage).setDebug(true).registerAll();
 	}
 
 	private static void updateTopic() {
