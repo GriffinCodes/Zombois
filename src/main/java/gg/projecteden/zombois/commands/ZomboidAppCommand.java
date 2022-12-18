@@ -126,10 +126,10 @@ public class ZomboidAppCommand extends AppCommand {
 		if (!matcher.find())
 			throw new AppCommandException("New config must be a " + PASTE_URL + " link");
 
-		String raw = PASTE_URL + "raw/" + matcher.group();
+		String raw = PASTE_URL + "raw/" + link.replace(PASTE_URL, "");
 		try {
 			Files.copy(new URL(raw).openStream(), Paths.get(config.getPath()), StandardCopyOption.REPLACE_EXISTING);
-			reply(link + " copied to " + config.getPath() + ". Reboot server to apply changes.");
+			reply(link + " copied to `" + config.getPath() + "`. Reboot server to apply changes.");
 		} catch (Exception ex) {
 			ex.printStackTrace();
 			throw new AppCommandException(ex.getMessage());
