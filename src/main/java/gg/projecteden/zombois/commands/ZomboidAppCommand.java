@@ -7,6 +7,7 @@ import gg.projecteden.api.discord.appcommands.AppCommandEvent;
 import gg.projecteden.api.discord.appcommands.AppCommandRegistry;
 import gg.projecteden.api.discord.appcommands.annotations.Command;
 import gg.projecteden.api.discord.appcommands.annotations.GuildCommand;
+import gg.projecteden.api.discord.appcommands.annotations.RequiredRole;
 import gg.projecteden.api.discord.appcommands.exceptions.AppCommandException;
 import gg.projecteden.zombois.Config;
 import gg.projecteden.zombois.Zombois;
@@ -24,6 +25,7 @@ import static gg.projecteden.zombois.Zombois.console;
 
 @GuildCommand("948361092101455962")
 @Command("Interact with the Project Zomboid server")
+@RequiredRole("Zomboi")
 public class ZomboidAppCommand extends AppCommand {
 	private static final Runnable start = () -> console("~/zomboid/start-server.sh -servername " + Config.SERVER);
 
@@ -98,7 +100,7 @@ public class ZomboidAppCommand extends AppCommand {
 		}
 
 		public String getPaste() {
-			return PASTE_URL + "zomboid-" + name().toLowerCase() + getExtension();
+			return PASTE_URL + "zomboid-" + name().toLowerCase() + "." + getExtension();
 		}
 
 		private String getExtension() {
@@ -122,7 +124,7 @@ public class ZomboidAppCommand extends AppCommand {
 	void config_set(ConfigType config, String link) {
 		Matcher matcher = PASTE_URL_REGEX.matcher(link);
 		if (!matcher.find())
-			throw new AppCommandException("New config must be a paste.projecteden.gg link");
+			throw new AppCommandException("New config must be a " + PASTE_URL + " link");
 
 		String raw = PASTE_URL + "raw/" + matcher.group();
 		try {

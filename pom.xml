@@ -91,6 +91,10 @@
       <id>projecteden-repo</id>
       <url>https://sonatype.projecteden.gg/repository/maven-repo/</url>
     </repository>
+    <repository>
+      <id>projecteden-snapshots</id>
+      <url>https://sonatype.projecteden.gg/repository/maven-snapshots/</url>
+    </repository>
   </repositories>
 
   <dependencies>

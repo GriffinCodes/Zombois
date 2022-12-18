@@ -2,6 +2,7 @@ package gg.projecteden.zombois;
 
 import gg.projecteden.api.common.utils.ReflectionUtils;
 import gg.projecteden.api.common.utils.Utils;
+import gg.projecteden.api.discord.appcommands.AppCommand;
 import gg.projecteden.api.discord.appcommands.AppCommandRegistry;
 import lombok.SneakyThrows;
 import net.dv8tion.jda.api.JDA;
@@ -29,7 +30,7 @@ public class Discord {
 			.build()
 			.awaitReady();
 
-		final String commandsPackage = gg.projecteden.zombois.Zombois.class.getPackage().getName() + ".commands";
+		final String commandsPackage = Zombois.class.getPackageName() + ".commands";
 		new AppCommandRegistry(JDA, commandsPackage).registerAll();
 	}
 
