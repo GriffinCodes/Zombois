@@ -1,12 +1,8 @@
 package gg.projecteden.zombois;
 
-import gg.projecteden.EdenAPI;
-import gg.projecteden.mongodb.DatabaseConfig;
-import gg.projecteden.utils.Env;
-import gg.projecteden.utils.StringUtils;
-import gg.projecteden.utils.Tasks;
-import gg.projecteden.utils.TimeUtils.MillisTime;
-import gg.projecteden.utils.Utils;
+import gg.projecteden.api.common.EdenAPI;
+import gg.projecteden.api.common.utils.*;
+import gg.projecteden.api.common.utils.TimeUtils.MillisTime;
 import it.sauronsoftware.cron4j.Scheduler;
 import lombok.Getter;
 import lombok.SneakyThrows;
@@ -58,7 +54,7 @@ public class Zombois extends EdenAPI {
 				final String[] split = tail.split("Players connected ()");
 				final String list = split[split.length - 1].split("\n\n")[0];
 				final List<String> players = new ArrayList<>(Arrays.asList(list.split(": ", 2)[1].trim().replaceFirst("\n-", "").split("\n-")));
-				players.removeIf(StringUtils::isNullOrEmpty);
+				players.removeIf(Nullables::isNullOrEmpty);
 				future.complete("Online Nerds (%d): %s".formatted(players.size(), String.join(", ", players)));
 			} catch (Exception ex) {
 				ex.printStackTrace();
@@ -74,8 +70,6 @@ public class Zombois extends EdenAPI {
 	}
 
 	@Override
-	public DatabaseConfig getDatabaseConfig() {
-		return null;
-	}
+	public void shutdown() {}
 
 }
